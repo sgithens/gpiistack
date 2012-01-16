@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema path="/apps/gpiisettings/" id="apps.gpiisettings" >
+    <key type="i" name="fontsize">
+      <default>12</default>
+      <range min="1" max="200"/>
+      <summary>Font Size</summary>
+      <description>This contains the users desired font size.</description>
+    </key>
+    <key type="b" name="highcontrast">
+      <default>false</default>
+      <summary>High Contrast</summary>
+      <description>Determines whether the user prefers a high contrast display.</description>
+    </key>
+  </schema>
+</schemalist>

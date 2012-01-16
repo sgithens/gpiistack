@@ -1,0 +1,20 @@
+This is a small demo app exercising gsettings settings storage and it's ability to 
+generate and listen to events bi-directionally to update apps on the fly. I'm working
+with it on Ubuntu 11.10 at the moment, but it should work on any modern stack built
+of off gnome and using gsettings.
+
+1. Install the gsettings schema:
+
+sudo cp apps.gpiisettings.gschema.xml /usr/share/glib-2.0/schemas/
+sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
+
+2. Run the app with
+
+python gpiisettings.py
+
+3. You can use dconf-editor to view and change the setting under apps/gpiisettings
+
+Don't confuse that with gconf-editor which is different and probably won't show our 
+new settings.
+
+Clicking in either dconf-editor or the small gui app should immediately update the other.
