@@ -3,10 +3,6 @@ generate and listen to events bi-directionally to update apps on the fly. I'm wo
 with it on Ubuntu 11.10 at the moment, but it should work on any modern stack built
 of off gnome and using gsettings.
 
-This is largely based off of this blog post: 
-
-http://www.micahcarrick.com/gsettings-python-gnome-3.html
-
 1. Install the gsettings schema:
 
 sudo cp apps.gpiisettings.gschema.xml /usr/share/glib-2.0/schemas/

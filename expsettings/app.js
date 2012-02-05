@@ -8,6 +8,8 @@ var express = require('express')
 
 var app = module.exports = express.createServer();
 
+var nodegsettings = require('/home/sgithens/code/gpiistack/nodegsettings/build/Release/nodegsettings.node');
+
 // Configuration
 
 app.configure(function(){
@@ -28,6 +30,25 @@ app.configure('production', function(){
 });
 
 // Routes
+
+app.get('/highcontrast', function(req,res) {
+//  res.contentType('application/json');
+    value = nodegsettings.hello();
+    var togo = {
+        highcontrast: value
+    };
+    res.send(togo);
+});
+
+app.post('/highcontrast/:val', function(req,res) {
+    value = req.param("val","off");
+    if (value === "on") {
+        nodegsettings.setHighContrastOn();
+    }
+    else {
+        nodegsettings.setHighContrastOff();
+    }
+});
 
 app.get('/', routes.index);
 

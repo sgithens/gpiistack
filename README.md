@@ -1,0 +1,1 @@
+Quick prototypes of using gsettings from different bindings.
