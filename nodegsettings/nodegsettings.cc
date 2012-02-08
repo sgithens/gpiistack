@@ -22,19 +22,23 @@ Handle<Value> Method(const Arguments& args) {
   return scope.Close(String::New(status));
 }
 
-Handle<Value> setHighContrastOn(const Arguments& args) {
-  HandleScope scope;
-  GSettings *settings;
-  settings = g_settings_new ("apps.gpiisettings");
-  g_settings_set_boolean(settings, "highcontrast", TRUE);
-  return scope.Close(String::New("ok"));
-}
 
-Handle<Value> setHighContrastOff(const Arguments& args) {
+Handle<Value> setHighContrast(const Arguments& args) {
   HandleScope scope;
+
+  if (args.Length() != 1) {
+    ThrowException(Exception::TypeError(String::New("Wrong number of arguments")));
+    return scope.Close(Undefined());
+  }
+
+  if (!args[0]->IsBoolean()) {
+    ThrowException(Exception::TypeError(String::New("Wrong argument type")));
+    return scope.Close(Undefined());
+  }
+
   GSettings *settings;
   settings = g_settings_new ("apps.gpiisettings");
-  g_settings_set_boolean(settings, "highcontrast", FALSE);
+  g_settings_set_boolean(settings, "highcontrast", args[0]->BooleanValue());
   return scope.Close(String::New("ok"));
 }
 
@@ -43,10 +47,8 @@ void init(Handle<Object> target) {
   g_type_init(); // Initialize gobject system
   target->Set(String::NewSymbol("hello"),
       FunctionTemplate::New(Method)->GetFunction());
-  target->Set(String::NewSymbol("setHighContrastOn"),
-      FunctionTemplate::New(setHighContrastOn)->GetFunction());
-  target->Set(String::NewSymbol("setHighContrastOff"),
-      FunctionTemplate::New(setHighContrastOff)->GetFunction());
+  target->Set(String::NewSymbol("setHighContrast"),
+      FunctionTemplate::New(setHighContrast)->GetFunction());
 }
 NODE_MODULE(nodegsettings, init)
 

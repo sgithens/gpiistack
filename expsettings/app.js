@@ -43,10 +43,10 @@ app.get('/highcontrast', function(req,res) {
 app.post('/highcontrast/:val', function(req,res) {
     value = req.param("val","off");
     if (value === "on") {
-        nodegsettings.setHighContrastOn();
+        nodegsettings.setHighContrast(true);
     }
     else {
-        nodegsettings.setHighContrastOff();
+        nodegsettings.setHighContrast(false);
     }
 });
 
