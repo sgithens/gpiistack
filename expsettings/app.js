@@ -4,7 +4,10 @@
  */
 
 var express = require('express')
-  , routes = require('./routes')
+, routes = require('./routes');
+
+var exec = require('child_process').exec;
+var sys = require('sys');
 
 var app = module.exports = express.createServer();
 
@@ -48,6 +51,19 @@ app.post('/highcontrast/:val', function(req,res) {
     else {
         nodegsettings.setHighContrast(false);
     }
+});
+
+app.put('/magsettings', function(req,res) {
+    var data = "";
+    req.addListener('data', function(chunk) {data+=chunk;});
+    req.addListener('end', function() {
+        var jsonData = JSON.parse(data);
+        var magFactor = jsonData["Display"]["screen enhancement"]["magnification"];
+        var child = exec('gsettings set org.gnome.desktop.a11y.magnifier mag-factor '+magFactor, function(error, stdout, stderr) {
+            res.send('');
+         });
+        
+    });
 });
 
 app.get('/', routes.index);
